@@ -6,10 +6,12 @@ import java.util.*
 
 open class Note(var date: Date, var title: String, var content: String) : Parcelable {
 
+
+    constructor(id: Int,  date: Date,  title: String,  content: String) : this(date, title, content){
+        this.id = id
+    }
+
     var id = 0
-        private set(value){
-            field = value
-        }
 
     val isReminder
         get() = content.startsWith("[reminder]")

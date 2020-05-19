@@ -4,6 +4,7 @@ import android.util.Log
 import java.lang.Exception
 import java.sql.Connection
 import java.sql.DriverManager
+import java.sql.SQLException
 
 class MySqlConnection(
     val host: String,
@@ -12,15 +13,26 @@ class MySqlConnection(
     val user: String,
     val password: String) {
 
-    fun buildConnection(): ExecutorResponse<Connection?>{
-        try {
+    fun buildConnectionAsExecutor(): ExecutorResponse<Connection?>{
+        return try {
             Class.forName("com.mysql.jdbc.Driver")
-            return ExecutorResponse(DriverManager.getConnection("jdbc:mysql://$host:$port/$database", user, password))
+            ExecutorResponse(DriverManager.getConnection("jdbc:mysql://$host:$port/$database", user, password))
         }catch(e: Exception){
             Log.e("NOTE-JDBC-ERR",e.message!!)
-            return ExecutorResponse(e)
+            ExecutorResponse(e)
         }
 
+    }
+
+    @Throws(SQLException::class)
+    fun buildConnection(): Connection{
+        return try {
+            Class.forName("com.mysql.jdbc.Driver")
+            DriverManager.getConnection("jdbc:mysql://$host:$port/$database", user, password)
+        }catch(e: SQLException){
+            Log.e("NOTE-JDBC-ERR",e.message!!)
+            throw e
+        }
     }
 
 }

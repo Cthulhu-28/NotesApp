@@ -1,4 +1,4 @@
-package cr.ac.tec.proyecto.notesapp.steven.ui.main
+package cr.ac.tec.proyecto.notesapp.steven.ui.activities.main
 
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +15,9 @@ class NoteAdapter @Inject constructor(val event: NoteAdapterEvent): RecyclerView
 
     private val selected = mutableMapOf<Note, Boolean>()
     private var notes: List<Note> = listOf()
+    private var noteSelected = false
+    val  selectedNotes
+        get() = selected.keys.filter { selected[it]!! }.toList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_note, parent, false)
@@ -37,15 +40,15 @@ class NoteAdapter @Inject constructor(val event: NoteAdapterEvent): RecyclerView
             holder.tvContent.visibility = View.GONE
         }
         if(selected.containsKey(note)){
-            holder.overlay.visibility = if(selected[note]!!)View.VISIBLE else View.GONE
+            holder.selected.visibility = if(selected[note]!!)View.VISIBLE else View.INVISIBLE
         }
+        holder.tvTitle.text = note.title
         Glide
             .with(holder.itemView.context)
             .load(resolvePosition(position))
             .into(holder.imgDot)
-
-
     }
+
 
     @Resource
     private fun resolvePosition(position: Int): Int{
@@ -66,8 +69,6 @@ class NoteAdapter @Inject constructor(val event: NoteAdapterEvent): RecyclerView
         notifyDataSetChanged()
     }
 
-
-
     fun <T : RecyclerView.ViewHolder> T.bindEvents(): T {
 
         itemView.setOnClickListener{
@@ -80,6 +81,7 @@ class NoteAdapter @Inject constructor(val event: NoteAdapterEvent): RecyclerView
                 selected[note] = selected[note]!!.not()
             }
             notifyItemChanged(adapterPosition)
+            checkSelected()
             true
         }
 
@@ -87,18 +89,43 @@ class NoteAdapter @Inject constructor(val event: NoteAdapterEvent): RecyclerView
     }
 
 
+    private fun checkSelected(){
+        val notify = selected.values.reduce { acc, b ->  acc || b}
+        if(noteSelected){
+            if(!notify){
+                noteSelected = false
+                event.onAllNotesUnselected()
+            }
+        }else{
+            if(notify){
+                event.onFirstNoteSelected()
+                noteSelected = true
+            }
+        }
+    }
+
+    fun unselectAll(){
+        selected.keys.forEach { selected[it] = false }
+        noteSelected = false
+        notifyDataSetChanged()
+    }
+
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         var imgDot = view.item_note_img_dot
         var tvTitle = view.item_note_tv_title
         var tvContent = view.item_note_tv_content
         var tvReminder = view.item_note_tv_reminder
-        var overlay = view.item_note_overlay
+        var selected = view.item_note_select
     }
 
     interface NoteAdapterEvent{
 
         fun onNoteClicked(note: Note)
+
+        fun onFirstNoteSelected()
+
+        fun onAllNotesUnselected()
 
     }
 

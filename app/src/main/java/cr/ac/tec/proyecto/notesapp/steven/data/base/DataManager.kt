@@ -6,7 +6,7 @@ interface DataManager {
 
     fun listNotes(event: DataEvent<List<Note>>)
 
-    fun getNode(id: Int, event: DataEvent<Note>)
+    fun getNote(id: Int, event: DataEvent<Note>)
 
     fun addNote(note: Note, event: DataEvent<Note>)
 

@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">NotesApp</string>
+    <string name="activity_main_loading_notes">Loading notes</string>
+    <string name="activity_main_add_reminder">Reminder</string>
+    <string name="activity_main_add_note">Note</string>
+    <string name="activity_add_note_title">Type the title</string>
+    <string name="activity_add_note_cotent">Type the content</string>
+    <string name="activity_add_note_tile">New note</string>
+    <string name="activity_main_my_notes">My notes</string>
+    <string name="dialog_confirmation_default">Do you want to confirm the changes?</string>
+    <string name="dialog_confirmation_accept">Accept</string>
+    <string name="dialog_confirmation_cancel">Cancel</string>
+    <string name="activity_main_delete_notes">Do you want to delete the selected notes?</string>
+    <string name="activity_add_note_saving">Saving note</string>
+    <string name="activity_add_note_success">The note was saved succesfully</string>
+    <string name="activity_main_error_notes">The notes couldn\'t be loaded</string>
+    <string name="activity_main_deleting_notes">Deleting notes</string>
+    <string name="activity_main_success_delete">Notes deleted successfully</string>
+    <string name="activity_edit_note_tile">Edit mode</string>
+    <string name="activity_add_reminder_tile">New reminder</string>
 </resources>

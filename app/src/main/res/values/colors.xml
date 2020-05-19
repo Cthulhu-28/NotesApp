@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryOverlay">#a0008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">@color/colorPurple</color>
+    <color name="colorOverlay">#60000000</color>
+    <color name="colorPrimaryDark">@color/colorPurple</color>
+    <color name="colorAccent">@color/colorLightPink</color>
+    <color name="colorTextTitle">@color/colorPurple</color>
+    <color name="colorTextBlack">#555</color>
+    <color name="colorText">#888</color>
+    <color name="colorTextTitleHint">#666</color>
+
+
+    <color name="colorPurple">#987aed</color>
+    <color name="colorPink">#e793f9</color>
+    <color name="colorLightPink">#f4c1c9</color>
+    <color name="colorGreen">#eaea74</color>
+    <color name="colorTurquoise">#82d988</color>
+
 </resources>
